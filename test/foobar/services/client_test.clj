@@ -5,8 +5,10 @@
             [midje.sweet :refer :all]))
 
 (facts "about the client service"
+       (def thing "Ryan")
+       (def expected {:name thing})
 
        (fact "post should return the contents of the body"
-             (sut/post "Ryan") => {:name "Ryan"}
-             (provided (client/post "http://localhost:8080/describe/me" {:body "Ryan"}) =>
-                       {:body (help/to-json {:name "Ryan"})})))
+             (sut/post thing) => expected
+             (provided (client/post "http://localhost:8080/describe/me" {:body thing}) =>
+                       {:body (help/to-json expected)})))
